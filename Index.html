@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+
+<html>
+
+  <head>
+	 
+   <title> Calculadora de Composição Corporal</title>
+	
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+      <script type="text/javascript">
+        function CalculadoraHomem(){
+          var PS = parseFloat($("#Peso").val());
+          var PE = parseFloat($("#Peitoral").val());
+          var AB = parseFloat($("#Abdominal").val());
+          var CO = parseFloat($("#Coxa").val());
+          var ID = parseFloat($("#Idade").val());
+
+          var J=PE+AB+CO; // soma de (Peitoral+Abdominal+Coxa)
+          var H = 1.10938 - 0.0008267 *(J)+0.0000016 *(J)*2- 0.0002574 *(ID);
+          var G= [(4.95 / H) - 4.50] * 100;// gordura relativa 
+          var D=PS*G; // DENS + peso
+          var GA=D/ 100; // gordura absoluta
+          var P= PS - GA;//Cálculo da massa magra
+          var MI= P / 0.85;// Massa corporal ideal (para homens)
+          var MD= P -MI;//Massa corporal desviante (para homens)
+            
+          document.getElementById("Percentual_de_Gordura").innerHTML=G.toFixed(2);
+          document.getElementById("Gordura_absoluta").innerHTML=GA.toFixed(2);
+          document.getElementById("Massa_magra_absoluta").innerHTML=P.toFixed(2);
+          document.getElementById("Massa_corporal_ideal").innerHTML=MI.toFixed(2);
+          document.getElementById("Massa_corporal_em_excesso").innerHTML=MD.toFixed(2);
+        };
+ 
+         function CalculadoraMulher(){
+          var ID = parseFloat($("#Idade").val());
+          var PS = parseFloat($("#Peso").val());
+          var TR = parseFloat($("#Triceps").val());
+          var SU = parseFloat($("#Supra").val());
+          var CX = parseFloat($("#CoxaM").val());
+
+          var N=TR+SU+CX; // soma de (Triceps+Supra+Coxax)
+          var M =1.099421 - 0.0009929 *(N)+ 0.0000023 *(N)*2- 0.0001392 *(ID);
+          var C= [(4.95 / M) - 4.50] * 100;//gordura relativa 
+          var D=PS*C; // DENS + peso
+          var GA=D/ 100; // gordura absoluta
+          var P= PS - GA;//Cálculo da massa magra
+          var MM= P / 0.75; //Massa corporal ideal (para mulheres)
+          var MDD= P -MM;//Massa corporal desviante (para mulheres)
+
+          document.getElementById("gordura").innerHTML=C.toFixed(2);
+          document.getElementById("absoluta").innerHTML=GA.toFixed(2);
+          document.getElementById("magra").innerHTML=P.toFixed(2);
+          document.getElementById("ideal").innerHTML=MM.toFixed(2);
+          document.getElementById("excesso").innerHTML=MDD.toFixed(2);
+         };
+
+    </script>
+    <style type="text/css">
+      #corpo{
+        background-image: url(Imagens/fit.jpg);
+        background-position: center;
+        background-repeat: no-repeat;
+        font-family: Courier;
+      }
+      #titulo{
+        color:#FFFFFF;
+        text-shadow: 3px -2px black; 
+      }
+      #Homem{
+        background-color: #000000;
+        width: 430px;
+        height: 330px;
+        color:#FFFFFF;
+        border-radius:20px 20px 20px 20px;
+        position: absolute;
+        font-size: 19px;
+        border:groove;
+        border-width: 10px;
+        border-right-color: blue;
+        border-top-color: blue;
+        border-left-color: blue;
+        border-bottom-color: blue;
+      }
+      #resultadoH{
+        background-color: #000000;
+        width: 430px;
+        height: 330px;
+        color:#FFFFFF;
+        border-radius:20px 20px 20px 20px;
+        position: relative;
+        font-size: 19px;
+        border:groove;
+        border-width: 10px;
+        left:15px;
+        border-right-color: blue;
+        border-top-color: blue;
+        border-left-color: blue;
+        border-bottom-color: blue;
+      }
+      #Mulher{
+        background-color:pink;
+        width: 430px;
+        height: 330px;
+        color:#FFFFFF;
+        border-radius:20px 20px 20px 20px;
+        position: absolute;
+        font-size: 19px;
+        border:groove;
+        border-width: 10px;
+        border-right-color: #FF69B4;
+        border-top-color: #FF69B4;
+        border-left-color: #FF69B4;
+        border-bottom-color: #FF69B4;
+      }
+      #resultadoM{
+        background-color: pink;
+        width: 430px;
+        height: 330px;
+        color:#FFFFFF;
+        border-radius:20px 20px 20px 20px;
+        position: relative;
+        font-size: 19px;
+        border:groove;
+        border-width: 10px;
+        left:14px;
+        border-right-color: #FF69B4;
+        border-top-color: #FF69B4;
+        border-left-color: #FF69B4;
+        border-bottom-color: #FF69B4;
+      }
+      #botaoH{
+        border-radius: 15px 15px 15px 15px;
+        color:blue;
+      }
+      #botaoM{
+        border-radius: 15px 15px 15px 15px;
+        color:#FF69B4;
+      }
+    </style>
+
+  </head>
+
+<body id="corpo">
+<div id="titulo" align="center">
+  <h1>Calculadora de composição Corporal</h1>
+</div>
+<div id="TUDO" align="center">  
+<div id="Homem">
+  <h3>Homens</h3>
+    Peso:
+      <input id="Peso" type="number"><br><br> 
+    Idade:
+      <input id="Idade" type="number"><br><br> 
+    Peitoral:
+      <input id="Peitoral" type="number" ><br><br> 
+    Abdomêm:
+      <input id="Abdominal" type="number"><br><br> 
+    Coxa:
+      <input id="Coxa" type="number"><br><br> 
+
+    <button id="botaoH" class="button" type="button" onclick ="CalculadoraHomem()">Calcular</button><br>
+</div>
+<div id="resultadoH">
+    <br><p>Percentual de Gordura(%): <span id="Percentual_de_Gordura"></span>
+    <p>Gordura absoluta(kg): <span id="Gordura_absoluta"></span>
+    <p> Massa magra absoluta(kg): <span id="Massa_magra_absoluta"></span>
+    <p>Massa corporal ideal(kg): <span id="Massa_corporal_ideal"></span>
+    <p>Massa corporal em excesso(kg): <span id="Massa_corporal_em_excesso"></span>
+</div>
+
+
+<br><div id="Mulher">
+   <h2>Mulheres</h2>
+    Peso:
+    <input id="Peso" type="number"><br><br>
+    Idade:
+    <input id="Idade" type="number"><br><br>
+    Tríceps:
+    <input id="Triceps" type="number"><br><br>
+    Supra-Ilíaca:
+    <input id="Supra" type="number"><br><br>
+    Coxa:
+    <input id="CoxaM" type="number"><br><br>
+    
+    <button id="botaoM" class="button" type="button" onclick ="CalculadoraMulher()">Calcular</button><br>
+</div>
+<div id="resultadoM">
+    <p>Percentual de Gordura(%): <span id="gordura"></span>
+    <p>Gordura absoluta(kg): <span id="absoluta"></span>
+    <p>Massa magra absoluta(kg): <span id="magra"></span>
+    <p>Massa corporal ideal(kg): <span id="ideal"></span>
+    <p>Massa corporal em excesso(kg): <span id="excesso"></span>
+  </div>
+</div>
+</body></html>
